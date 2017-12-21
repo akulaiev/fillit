@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_data.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 15:34:23 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/12/04 15:34:25 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/12/04 14:45:22 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/12/04 14:45:25 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetrimino		*read_data(char *file_name)
+int		main(int argc, char *argv[])
 {
-	printf("read_data\n");
+	t_tetrimino		*tetr;
 
-	int			fd;
-	t_tetrimino	*tetr;
-
-	if (!(fd = open(file_name, O_RDONLY)))
+	if (argc != 2)
 	{
-		write(1, "Cannot open file\n", 17);
+		write(1, "usage: ./fillit source_file\n", 26);
 		exit(0);
 	}
-	tetr = write_data(fd);
-	close(fd);
-	return (tetr);
+	tetr = read_data(argv[1]);
+
+	printf("all result: %d\n", tetr->coord[1][1]);
+	return (0);
 }

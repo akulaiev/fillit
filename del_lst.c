@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_data.c                                        :+:      :+:    :+:   */
+/*   del_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 15:34:23 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/12/04 15:34:25 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/12/19 15:51:56 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/12/19 15:51:58 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetrimino		*read_data(char *file_name)
+void	del_lst(t_tetrimino *tetrim)
 {
-	printf("read_data\n");
+	int	i;
 
-	int			fd;
-	t_tetrimino	*tetr;
-
-	if (!(fd = open(file_name, O_RDONLY)))
+	i = 0;
+	if (tetrim)
 	{
-		write(1, "Cannot open file\n", 17);
-		exit(0);
+		if (tetrim->next == NULL)
+		{
+			while (i < 4)
+			{
+				free(tetrim->coord[i]);
+				i++;
+			}
+			tetrim = NULL;
+		}
+		else
+		{
+			del_lst(tetrim->next);
+		}
 	}
-	tetr = write_data(fd);
-	close(fd);
-	return (tetr);
+	return ;
 }
